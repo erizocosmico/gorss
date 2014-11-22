@@ -11,4 +11,4 @@ gorss is a library for easily parse RSS feeds and convert them to Go structs
 
    fmt.Println(*rss)
  }
- ``
+```
