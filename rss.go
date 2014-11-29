@@ -16,6 +16,7 @@ import (
 	"encoding/xml"
 	"io/ioutil"
 	"net/http"
+	"strings"
 )
 
 type Rss struct {
@@ -26,7 +27,7 @@ type Rss struct {
 type Channel struct {
 	Title          string           `xml:"title"`
 	Link           string           `xml:"link"`
-	Description    string           `xml:"description"`
+	Description    string           `xml:"articledescription"`
 	Language       string           `xml:"language"`
 	Copyright      string           `xml:"copyright"`
 	PubDate        string           `xml:"pubDate"`
@@ -50,7 +51,7 @@ type ChannelTextInput struct {
 	Title       string `xml:"title"`
 	Name        string `xml:"name"`
 	Link        string `xml:"link"`
-	Description string `xml:"description"`
+	Description string `xml:"articledescription"`
 }
 
 type ChannelSkipHours struct {
@@ -75,12 +76,12 @@ type ChannelImage struct {
 	Link        string `xml:"link"`
 	Width       int64  `xml:"width"`
 	Height      int64  `xml:"height"`
-	Description string `xml:"description"`
+	Description string `xml:"articledescription"`
 }
 
 type Item struct {
 	Title          string         `xml:"title"`
-	Description    string         `xml:"description"`
+	Description    string         `xml:"articledescription"`
 	Author         string         `xml:"author"`
 	Creator        string         `xml:"creator"`
 	Link           string         `xml:"link"`
@@ -132,6 +133,8 @@ type MediaThumbnail struct {
 
 // DecodeFeed decodes the content of a feed into an Rss struct.
 func DecodeFeed(content string) (*Rss, error) {
+	// Collides with <media:description> sometimes
+	content = strings.Replace(strings.Replace(content, "<description>", "<articledescription>", -1), "</description>", "</articledescription>", -1)
 	rss := &Rss{}
 	if err := xml.Unmarshal([]byte(content), rss); err != nil {
 		return nil, err

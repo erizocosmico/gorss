@@ -58,6 +58,7 @@ var expectedRSS = `
 			<link>Link</link>
 			<category domain="Domain">Value</category>
 			<category domain="Domain">Value</category>
+			<media:description type="html">Description 2</media:description>
 			<comments>Comments</comments>
 			<media:content url="URL" medium="Medium" width="80" height="80" type="Type">
 				<media:title type="html">Title</media:title>
@@ -77,6 +78,7 @@ var expectedRSS = `
 			<link>Link</link>
 			<category domain="Domain">Value</category>
 			<category domain="Domain">Value</category>
+			<media:description type="html">Description 2</media:description>
 			<comments>Comments</comments>
 			<media:content url="URL" medium="Medium" width="80" height="80" type="Type">
 				<media:title type="html">Title</media:title>
